@@ -7,16 +7,21 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-columbia-blue to-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-navy-blue mb-6" style={{ fontFamily: "Georgia, serif" }}>
+      <section 
+        className="relative bg-cover bg-center bg-no-repeat py-20 min-h-[70vh] flex items-center"
+        style={{ 
+          backgroundImage: "linear-gradient(rgba(0, 45, 114, 0.4), rgba(0, 45, 114, 0.4)), url('/nyc-hero-bg.jpg')"
+        }}
+      >
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" style={{ fontFamily: "Georgia, serif" }}>
             Join the private network for Columbia-connected founders.
           </h1>
-          <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-4xl mx-auto">
+          <p className="text-xl md:text-2xl text-white mb-8 max-w-4xl mx-auto">
             CFC is a highly vetted membership community for Columbia-connected entrepreneurs, founders and CEOs seeking belonging, support, and connection.
           </p>
           <Link href="/apply">
-            <Button className="bg-navy-blue text-white px-8 py-4 text-lg font-semibold hover:bg-blue-900 shadow-lg">
+            <Button className="bg-white text-navy-blue px-8 py-4 text-lg font-semibold hover:bg-gray-100 shadow-lg border-2 border-white">
               Apply to Join
             </Button>
           </Link>
