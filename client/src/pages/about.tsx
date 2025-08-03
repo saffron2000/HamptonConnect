@@ -18,6 +18,30 @@ const leaders = [
     title: "Advisory Board Chair",
     description: "Columbia College '95. Veteran tech executive and three-time founder. Currently Managing Partner at Columbia Ventures, connecting the university's innovation ecosystem with industry. 20+ years building Columbia's entrepreneurial community.",
     imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+  },
+  {
+    name: "Sarah Mitchell",
+    title: "Director of Member Relations",
+    description: "Columbia Journalism School '12. Former VP of Marketing at three NYC-based startups. Expert in content strategy and member engagement. Leads our speaker series and educational programming initiatives.",
+    imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+  },
+  {
+    name: "David Kumar",
+    title: "Head of Partnerships",
+    description: "Columbia SEAS '06, Wharton MBA '13. Former Director of Business Development at Google Ventures. Manages strategic partnerships and our exclusive vendor network. Connects members with funding opportunities.",
+    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+  },
+  {
+    name: "Rachel Williams",
+    title: "Community Manager",
+    description: "Columbia College '16. Previously at WeWork and General Assembly. Specializes in event programming and member onboarding. Organizes our monthly dinners and annual retreats across major cities.",
+    imageUrl: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+  },
+  {
+    name: "Michael Rodriguez",
+    title: "Technical Advisor",
+    description: "Columbia Engineering '03. Former CTO at two unicorn startups. Provides technical mentorship to our members and oversees our digital platform development. Active contributor to Columbia's entrepreneurship curriculum.",
+    imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
   }
 ];
 

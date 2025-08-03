@@ -57,9 +57,11 @@ export function Navigation() {
 
             {/* Logo */}
             <Link href="/" className="ml-4 lg:ml-0">
-              <span className="text-2xl font-bold text-navy-blue" style={{ fontFamily: "Georgia, serif" }}>
-                CFC
-              </span>
+              <img 
+                src="/cfc-logo.jpg" 
+                alt="CFC Logo" 
+                className="h-10 w-auto"
+              />
             </Link>
 
             {/* Desktop Navigation */}
