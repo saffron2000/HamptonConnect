@@ -1,5 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Linkedin } from "lucide-react";
+import ManjuPhoto from "@assets/Manju_1754272956679.jpg";
+import HanyPhoto from "@assets/Hany_1754272790149.jpg";
+import BrianPhoto from "@assets/Brian_1754272956678.jpg";
 
 interface Member {
   name: string;
@@ -16,7 +19,7 @@ const members: Member[] = [
     title: "Founder",
     company: "Thimble",
     description: "Physician entrepreneur and keynote speaker. Founder of Thimble, focused on compassionate needle pain care.",
-    imageUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    imageUrl: ManjuPhoto,
     linkedinUrl: "https://www.linkedin.com/in/manju-dawkins-md/"
   },
   {
@@ -24,7 +27,7 @@ const members: Member[] = [
     title: "Founder",
     company: "Lens of Sport",
     description: "VC/PE leader turned founder. Building data platforms for sports, media, and education sectors.",
-    imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    imageUrl: HanyPhoto,
     linkedinUrl: "https://www.linkedin.com/in/hany-k-syed-165b9631/"
   },
   {
@@ -32,7 +35,7 @@ const members: Member[] = [
     title: "Founder",
     company: "AdvisorGenie",
     description: "Columbia MBA & serial founder with deep fintech roots. Merging AI and strategy to elevate financial advisors.",
-    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    imageUrl: BrianPhoto,
     linkedinUrl: "https://www.linkedin.com/in/bkeenan/"
   },
   {
