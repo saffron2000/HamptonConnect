@@ -84,7 +84,16 @@ export function MemberShowcase() {
                 <img
                   src={member.imageUrl}
                   alt={`${member.name} headshot`}
-                  className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+                  className={`w-20 h-20 rounded-full mx-auto mb-4 object-cover ${
+                    member.name === "Manju Dawkins, MD" ? "object-[center_20%]" : 
+                    member.name === "Brian Keenan" ? "object-[center_25%]" : 
+                    "object-center"
+                  }`}
+                  style={
+                    member.name === "Manju Dawkins, MD" ? { objectPosition: "center 20%" } :
+                    member.name === "Brian Keenan" ? { objectPosition: "center 25%" } :
+                    {}
+                  }
                 />
                 <h3 className="text-xl font-bold text-navy-blue" style={{ fontFamily: "Georgia, serif" }}>
                   {member.name}
