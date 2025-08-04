@@ -81,20 +81,24 @@ export function MemberShowcase() {
           {members.map((member, index) => (
             <Card key={index} className="bg-light-gray p-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="text-center">
-                <img
-                  src={member.imageUrl}
-                  alt={`${member.name} headshot`}
-                  className={`w-20 h-20 rounded-full mx-auto mb-4 object-cover ${
-                    member.name === "Manju Dawkins, MD" ? "object-[center_20%]" : 
-                    member.name === "Brian Keenan" ? "object-[center_25%]" : 
-                    "object-center"
-                  }`}
-                  style={
-                    member.name === "Manju Dawkins, MD" ? { objectPosition: "center 20%" } :
-                    member.name === "Brian Keenan" ? { objectPosition: "center 25%" } :
-                    {}
-                  }
-                />
+                <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden">
+                  <img
+                    src={member.imageUrl}
+                    alt={`${member.name} headshot`}
+                    className="w-full h-full object-cover"
+                    style={
+                      member.name === "Manju Dawkins, MD" ? { 
+                        objectPosition: "center 25%",
+                        transform: "scale(1.8)"
+                      } :
+                      member.name === "Brian Keenan" ? { 
+                        objectPosition: "center 20%",
+                        transform: "scale(1.6)"
+                      } :
+                      {}
+                    }
+                  />
+                </div>
                 <h3 className="text-xl font-bold text-navy-blue" style={{ fontFamily: "Georgia, serif" }}>
                   {member.name}
                 </h3>
