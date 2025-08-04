@@ -92,8 +92,8 @@ export function MemberShowcase() {
                         transform: "scale(1.8)"
                       } :
                       member.name === "Brian Keenan" ? { 
-                        objectPosition: "45% 35%",
-                        transform: "scale(1.6)"
+                        objectPosition: "50% 30%",
+                        transform: "scale(1.7)"
                       } :
                       {}
                     }
