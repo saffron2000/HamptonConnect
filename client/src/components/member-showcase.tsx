@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Twitter, Linkedin } from "lucide-react";
+import { Linkedin } from "lucide-react";
 
 interface Member {
   name: string;
@@ -7,37 +7,33 @@ interface Member {
   company: string;
   description: string;
   imageUrl: string;
-  twitterUrl?: string;
   linkedinUrl?: string;
 }
 
 const members: Member[] = [
   {
-    name: "Sarah Chen",
+    name: "Manju Dawkins, MD",
     title: "Founder",
-    company: "TechFlow",
-    description: "Built a B2B SaaS platform to $25M ARR. Columbia Engineering '15. Previously VP at Goldman Sachs.",
-    imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
-    twitterUrl: "#",
-    linkedinUrl: "#"
+    company: "Thimble",
+    description: "Physician entrepreneur and keynote speaker. Founder of Thimble, focused on compassionate needle pain care.",
+    imageUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    linkedinUrl: "https://www.linkedin.com/in/manju-dawkins-md/"
   },
   {
-    name: "Michael Rodriguez",
-    title: "CEO",
-    company: "FinanceCore",
-    description: "Fintech startup serving 50K+ businesses. Raised $40M Series B. Columbia Business School MBA '18.",
+    name: "Hany K. Syed",
+    title: "Founder",
+    company: "Lens of Sport",
+    description: "VC/PE leader turned founder. Building data platforms for sports, media, and education sectors.",
     imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
-    twitterUrl: "#",
-    linkedinUrl: "#"
+    linkedinUrl: "https://www.linkedin.com/in/hany-k-syed-165b9631/"
   },
   {
-    name: "Lisa Wang",
+    name: "Brian Keenan",
     title: "Founder",
-    company: "HealthTech Solutions",
-    description: "Medical device company with FDA approval. $100M+ exit in 2023. Columbia Medical School alumna.",
-    imageUrl: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
-    twitterUrl: "#",
-    linkedinUrl: "#"
+    company: "AdvisorGenie",
+    description: "Columbia MBA & serial founder with deep fintech roots. Merging AI and strategy to elevate financial advisors.",
+    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    linkedinUrl: "https://www.linkedin.com/in/bkeenan/"
   },
   {
     name: "David Kim",
@@ -45,7 +41,6 @@ const members: Member[] = [
     company: "EduPlatform",
     description: "EdTech serving 2M+ students globally. Bootstrapped to $15M ARR. Teachers College alumnus.",
     imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
-    twitterUrl: "#",
     linkedinUrl: "#"
   },
   {
@@ -54,7 +49,6 @@ const members: Member[] = [
     company: "GreenEnergy Corp",
     description: "Clean energy startup with $200M+ in funding. Columbia SEAS graduate, former Tesla engineer.",
     imageUrl: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
-    twitterUrl: "#",
     linkedinUrl: "#"
   },
   {
@@ -63,7 +57,6 @@ const members: Member[] = [
     company: "LogisticsPro",
     description: "Supply chain platform used by Fortune 500 companies. $50M Series C. Columbia MBA '14.",
     imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
-    twitterUrl: "#",
     linkedinUrl: "#"
   }
 ];
@@ -97,13 +90,8 @@ export function MemberShowcase() {
                   {member.title} of {member.company}
                 </p>
                 <div className="flex justify-center space-x-2 mb-4">
-                  {member.twitterUrl && (
-                    <a href={member.twitterUrl} className="text-blue-500 hover:text-blue-700">
-                      <Twitter className="w-4 h-4" />
-                    </a>
-                  )}
                   {member.linkedinUrl && (
-                    <a href={member.linkedinUrl} className="text-blue-600 hover:text-blue-800">
+                    <a href={member.linkedinUrl} className="text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">
                       <Linkedin className="w-4 h-4" />
                     </a>
                   )}
