@@ -1,47 +1,54 @@
 import { Card } from "@/components/ui/card";
+import RoopePhoto from "@assets/Roope_1754271199573.jpg";
+import JayPhoto from "@assets/Jay_1754271199571.jpg";
+import HanyPhoto from "@assets/Hany_1754271199570.jpg";
+import SarahPhoto from "@assets/Sarah_1754271199574.jpg";
+import EugenePhoto from "@assets/Eugene_1754271199567.jpg";
+import JoelPhoto from "@assets/Joel_1754271199572.jpg";
+import RafaelPhoto from "@assets/Rafael_1754271199568.jpg";
 
 const leaders = [
   {
-    name: "Alex Thompson",
-    title: "Co-Founder & CEO",
-    description: "Columbia Business School MBA '10. Previously led growth at two successful exits totaling $400M+. Founded CFC to create the community he wished existed during his entrepreneurial journey. Active angel investor with 25+ portfolio companies.",
-    imageUrl: "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+    name: "Roope Marttila",
+    title: "3x Founder",
+    description: "Roope Marttila is a 3x founder of companies serving 450K unique users and creating $310M of value for their clients. He's a Columbia Law School graduate who's been an entrepreneur for 15 years.",
+    imageUrl: RoopePhoto
   },
   {
-    name: "Maria Santos",
-    title: "Co-Founder & Chief Community Officer",
-    description: "Columbia Engineering '08, Stanford MBA '14. Serial entrepreneur with expertise in community building and startup operations. Previously VP of Community at a $2B unicorn. Passionate about fostering meaningful connections between founders.",
-    imageUrl: "https://images.unsplash.com/photo-1554727242-741c14fa561c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+    name: "Jay Newton-Small",
+    title: "Founder, PlanAllies",
+    description: "Jay is the founder of PlanAllies, a B2B SaaS platform disrupting call centers by replacing scripts with open, free-flowing conversations that collect superior data.",
+    imageUrl: JayPhoto
   },
   {
-    name: "James Chen",
-    title: "Advisory Board Chair",
-    description: "Columbia College '95. Veteran tech executive and three-time founder. Currently Managing Partner at Columbia Ventures, connecting the university's innovation ecosystem with industry. 20+ years building Columbia's entrepreneurial community.",
-    imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+    name: "Hany K. Syed",
+    title: "Co-Founder, Lens of Sport",
+    description: "VC/PE leader and former C-suite executive in social infrastructure sectors. Specializes in scaling venture-backed companies globally. Co-founder and CEO of Lens of Sport, a fan intelligence platform for sports and entertainment.",
+    imageUrl: HanyPhoto
   },
   {
-    name: "Sarah Mitchell",
-    title: "Director of Member Relations",
-    description: "Columbia Journalism School '12. Former VP of Marketing at three NYC-based startups. Expert in content strategy and member engagement. Leads our speaker series and educational programming initiatives.",
-    imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+    name: "Sarah Ribner",
+    title: "Founder, PiperWai",
+    description: "Columbia MBA and UPenn alum. 2x founder behind PiperWai, a sustainable hygiene brand featured on Shark Tank, and a CPG growth advisor focused on wellness, impact, and community.",
+    imageUrl: SarahPhoto
   },
   {
-    name: "David Kumar",
-    title: "Head of Partnerships",
-    description: "Columbia SEAS '06, Wharton MBA '13. Former Director of Business Development at Google Ventures. Manages strategic partnerships and our exclusive vendor network. Connects members with funding opportunities.",
-    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+    name: "Eugene Major",
+    title: "Founder, Dunbar Capital",
+    description: "Startup founder in the financial sector. Currently incoming CEO of an early-stage biotech university spinout. Columbia alum with a background in capital markets and venture building.",
+    imageUrl: EugenePhoto
   },
   {
-    name: "Rachel Williams",
-    title: "Community Manager",
-    description: "Columbia College '16. Previously at WeWork and General Assembly. Specializes in event programming and member onboarding. Organizes our monthly dinners and annual retreats across major cities.",
-    imageUrl: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+    name: "Joel Phillips",
+    title: "Founder & Strategist",
+    description: "Columbia economics graduate and entrepreneur with experience across SaaS, tech, and advisory. Known for human-centered strategy and digital-first growth leadership.",
+    imageUrl: JoelPhoto
   },
   {
-    name: "Michael Rodriguez",
-    title: "Technical Advisor",
-    description: "Columbia Engineering '03. Former CTO at two unicorn startups. Provides technical mentorship to our members and oversees our digital platform development. Active contributor to Columbia's entrepreneurship curriculum.",
-    imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+    name: "Rafael G. Canario",
+    title: "Founder & CEO, Shaker",
+    description: "Founder of Shaker, a SaaS platform powering engagement for universities, accelerators, and membership networks. First-gen entrepreneur building tech to streamline community operations.",
+    imageUrl: RafaelPhoto
   }
 ];
 
@@ -62,7 +69,7 @@ export default function About() {
         {/* Leadership Grid */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-navy-blue text-center mb-12" style={{ fontFamily: "Georgia, serif" }}>
-            Leadership Team
+            Global Leadership Board
           </h2>
           
           <div className="space-y-12">
