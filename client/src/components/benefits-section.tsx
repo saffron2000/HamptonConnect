@@ -9,12 +9,12 @@ const benefits = [
   {
     icon: MessageSquare,
     title: "Digital Community",
-    description: "Access to a highly engaged digital community providing helpful advice, dedicated digital concierge, and weekly newsletter."
+    description: "Access to a highly engaged digital community providing helpful advice, resources, and regular newsletters."
   },
   {
     icon: Calendar,
-    title: "In-Person Events",
-    description: "Monthly member dinners, annual retreats, and local adventures focused on building lasting connections."
+    title: "Tailored Events",
+    description: "Virtual and in-person events that foster collaboration, networking and continued learning."
   },
   {
     icon: GraduationCap,
@@ -24,7 +24,7 @@ const benefits = [
   {
     icon: Star,
     title: "Exclusive Perks",
-    description: "Secured exclusive discounts with popular software companies, tools, and apps, plus robust preferred vendor database."
+    description: "Secure exclusive discounts with popular software companies, tools, and apps, plus robust preferred investor and vendor database."
   },
   {
     icon: Handshake,

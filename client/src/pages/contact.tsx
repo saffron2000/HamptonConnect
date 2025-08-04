@@ -52,89 +52,84 @@ export default function Contact() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-navy-blue mb-6" style={{ fontFamily: "Georgia, serif" }}>
-            Get In Touch
+            Connect with Our Subcommittees
           </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Have questions, ideas, or feedback? We're here to listen. Fill out the form to start a conversation with our dedicated Community Managers.
+          <p className="text-xl text-gray-700 max-w-4xl mx-auto">
+            Our specialized subcommittees are the backbone of our community. Whether you have strategic insights, financial inquiries, member or partner relations, or tech-oriented discussions, our subcommittee experts are ready to assist.
           </p>
         </div>
 
-        <Card className="shadow-lg">
-          <CardContent className="p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Full Name */}
-              <div>
-                <Label htmlFor="fullName" className="text-sm font-semibold text-navy-blue">
-                  Full Name
-                </Label>
-                <Input
-                  type="text"
-                  id="fullName"
-                  name="fullName"
-                  required
-                  className="mt-2"
-                  placeholder="Enter your full name"
-                />
-              </div>
+        {/* Subcommittees Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Strategic Planning */}
+          <Card className="bg-light-gray p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+            <Mail className="text-3xl text-navy-blue mb-4 mx-auto" />
+            <h3 className="font-bold text-navy-blue mb-3 text-lg" style={{ fontFamily: "Georgia, serif" }}>
+              Strategic Planning Subcommittee
+            </h3>
+            <p className="text-gray-600 mb-4 text-sm">
+              For visionary planning and long-term goals.
+            </p>
+            <p className="text-navy-blue font-semibold">
+              📧 strategy@columbiafounders.com
+            </p>
+          </Card>
 
-              {/* Email */}
-              <div>
-                <Label htmlFor="email" className="text-sm font-semibold text-navy-blue">
-                  Email
-                </Label>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  className="mt-2"
-                  placeholder="Enter your email address"
-                />
-              </div>
+          {/* Finance, Compliance, and Infrastructure */}
+          <Card className="bg-light-gray p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+            <Mail className="text-3xl text-navy-blue mb-4 mx-auto" />
+            <h3 className="font-bold text-navy-blue mb-3 text-lg" style={{ fontFamily: "Georgia, serif" }}>
+              Finance, Compliance, and Infrastructure Subcommittee
+            </h3>
+            <p className="text-gray-600 mb-4 text-sm">
+              For financial matters, compliance questions, and infrastructure insights.
+            </p>
+            <p className="text-navy-blue font-semibold">
+              📧 finance@columbiafounders.com
+            </p>
+          </Card>
 
-              {/* Message */}
-              <div>
-                <Label htmlFor="message" className="text-sm font-semibold text-navy-blue">
-                  Message
-                </Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  rows={6}
-                  required
-                  className="mt-2 resize-vertical"
-                  placeholder="Tell us about your question, idea, or feedback..."
-                />
-              </div>
+          {/* Member Relations */}
+          <Card className="bg-light-gray p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+            <Mail className="text-3xl text-navy-blue mb-4 mx-auto" />
+            <h3 className="font-bold text-navy-blue mb-3 text-lg" style={{ fontFamily: "Georgia, serif" }}>
+              Member Relations Subcommittee
+            </h3>
+            <p className="text-gray-600 mb-4 text-sm">
+              For member engagement, support, and networking opportunities.
+            </p>
+            <p className="text-navy-blue font-semibold">
+              📧 engagement@columbiafounders.com
+            </p>
+          </Card>
 
-              {/* Send Button */}
-              <div className="text-center">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="bg-navy-blue text-white px-8 py-3 text-lg font-semibold hover:bg-blue-900 shadow-lg"
-                >
-                  {isSubmitting ? "SENDING..." : "SEND"}
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+          {/* Partner Relations */}
+          <Card className="bg-light-gray p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+            <Mail className="text-3xl text-navy-blue mb-4 mx-auto" />
+            <h3 className="font-bold text-navy-blue mb-3 text-lg" style={{ fontFamily: "Georgia, serif" }}>
+              Partner Relations Subcommittee
+            </h3>
+            <p className="text-gray-600 mb-4 text-sm">
+              For partnership queries and collaboration opportunities.
+            </p>
+            <p className="text-navy-blue font-semibold">
+              📧 partners@columbiafounders.com
+            </p>
+          </Card>
 
-        {/* Contact Info */}
-        <div className="mt-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-light-gray p-6 text-center">
-              <Mail className="text-2xl text-navy-blue mb-3 mx-auto" />
-              <h3 className="font-semibold text-navy-blue mb-2">Email</h3>
-              <p className="text-gray-600">hello@columbiafounders.com</p>
-            </Card>
-            <Card className="bg-light-gray p-6 text-center">
-              <MapPin className="text-2xl text-navy-blue mb-3 mx-auto" />
-              <h3 className="font-semibold text-navy-blue mb-2">Location</h3>
-              <p className="text-gray-600">New York, NY</p>
-            </Card>
-          </div>
+          {/* Tech and Infrastructure */}
+          <Card className="bg-light-gray p-6 text-center shadow-lg hover:shadow-xl transition-shadow md:col-span-2 lg:col-span-1">
+            <Mail className="text-3xl text-navy-blue mb-4 mx-auto" />
+            <h3 className="font-bold text-navy-blue mb-3 text-lg" style={{ fontFamily: "Georgia, serif" }}>
+              Tech and Infrastructure Subcommittee
+            </h3>
+            <p className="text-gray-600 mb-4 text-sm">
+              For tech support, infrastructure development, and innovative solutions.
+            </p>
+            <p className="text-navy-blue font-semibold">
+              📧 tech@columbiafounders.com
+            </p>
+          </Card>
         </div>
       </div>
     </section>
