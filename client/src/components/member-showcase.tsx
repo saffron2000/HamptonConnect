@@ -3,6 +3,9 @@ import { Linkedin } from "lucide-react";
 import ManjuPhoto from "@assets/Manju_1754272956679.jpg";
 import HanyPhoto from "@assets/Hany_1754272790149.jpg";
 import BrianPhoto from "@assets/Brian_1754272956678.jpg";
+import VerityPhoto from "@assets/Verity_1754412475189.jpeg";
+import HendraPhoto from "@assets/Hendra_1754412475186.jpeg";
+import TinaPhoto from "@assets/Tina_1754412475188.jpeg";
 
 interface Member {
   name: string;
@@ -43,7 +46,7 @@ const members: Member[] = [
     title: "Co-Founder & COO",
     company: "Branch",
     description: "Columbia MBA '19. Co-founded the world's fastest growing office furniture brand. Led 7000% growth during pandemic pivot.",
-    imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    imageUrl: VerityPhoto,
     linkedinUrl: "https://www.linkedin.com/in/verity-sylvester/"
   },
   {
@@ -51,7 +54,7 @@ const members: Member[] = [
     title: "Founder & CEO",
     company: "Kilohana.AI",
     description: "Columbia PhD candidate in AI & Robotics. IBM Research Fellow. 20+ years managing multi-billion dollar assets on Wall Street.",
-    imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    imageUrl: HendraPhoto,
     linkedinUrl: "https://www.linkedin.com/in/hendra-soetjahja/"
   },
   {
@@ -59,7 +62,7 @@ const members: Member[] = [
     title: "Co-Founder & COO",
     company: "Adauris",
     description: "Columbia '15 Urban Studies. AI-powered content platform. Selected for Morgan Stanley Inclusive Ventures Lab from 7,900+ applicants.",
-    imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    imageUrl: TinaPhoto,
     linkedinUrl: "https://www.linkedin.com/in/tina-haertel/"
   }
 ];
