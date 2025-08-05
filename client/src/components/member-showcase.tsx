@@ -39,28 +39,28 @@ const members: Member[] = [
     linkedinUrl: "https://www.linkedin.com/in/bkeenan/"
   },
   {
-    name: "David Kim",
-    title: "Co-founder",
-    company: "EduPlatform",
-    description: "EdTech serving 2M+ students globally. Bootstrapped to $15M ARR. Teachers College alumnus.",
-    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
-    linkedinUrl: "#"
+    name: "Verity Sylvester",
+    title: "Co-Founder & COO",
+    company: "Branch",
+    description: "Columbia MBA '19. Co-founded the world's fastest growing office furniture brand. Led 7000% growth during pandemic pivot.",
+    imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    linkedinUrl: "https://www.linkedin.com/in/verity-sylvester/"
   },
   {
-    name: "Jennifer Martinez",
-    title: "Founder",
-    company: "GreenEnergy Corp",
-    description: "Clean energy startup with $200M+ in funding. Columbia SEAS graduate, former Tesla engineer.",
-    imageUrl: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
-    linkedinUrl: "#"
+    name: "Hendra Soetjahja",
+    title: "Founder & CEO",
+    company: "Kilohana.AI",
+    description: "Columbia PhD candidate in AI & Robotics. IBM Research Fellow. 20+ years managing multi-billion dollar assets on Wall Street.",
+    imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    linkedinUrl: "https://www.linkedin.com/in/hendra-soetjahja/"
   },
   {
-    name: "Robert Johnson",
-    title: "CEO",
-    company: "LogisticsPro",
-    description: "Supply chain platform used by Fortune 500 companies. $50M Series C. Columbia MBA '14.",
-    imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
-    linkedinUrl: "#"
+    name: "Tina Haertel",
+    title: "Co-Founder & COO",
+    company: "Adauris",
+    description: "Columbia '15 Urban Studies. AI-powered content platform. Selected for Morgan Stanley Inclusive Ventures Lab from 7,900+ applicants.",
+    imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+    linkedinUrl: "https://www.linkedin.com/in/tina-haertel/"
   }
 ];
 
