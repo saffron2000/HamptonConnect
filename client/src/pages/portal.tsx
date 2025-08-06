@@ -1,74 +1,21 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useAuth } from "@/hooks/use-auth";
-import { CheckCircle, Bolt } from "lucide-react";
+import { ExternalLink, Users, Shield, ArrowRight } from "lucide-react";
 
 export default function Portal() {
-  const { user, isLoading, login, logout, isAuthenticated } = useAuth();
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  // Auto-redirect after 3 seconds for better UX
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.open('https://shakernetwork.com/login?cd=864428', '_blank');
+    }, 3000);
 
-  const handleLogin = async (event: React.FormEvent) => {
-    event.preventDefault();
-    await login(loginData.email, loginData.password);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleImmediateLogin = () => {
+    window.open('https://shakernetwork.com/login?cd=864428', '_blank');
   };
-
-  const handleLogout = () => {
-    logout();
-    setLoginData({ email: "", password: "" });
-  };
-
-  if (isAuthenticated && user) {
-    return (
-      <section className="py-20 min-h-screen bg-gradient-to-br from-columbia-blue to-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-navy-blue mb-6" style={{ fontFamily: "Georgia, serif" }}>
-            Welcome to the Portal
-          </h1>
-          
-          <Card className="shadow-lg">
-            <CardContent className="p-12">
-              <Bolt className="text-6xl text-gray-400 mb-6 mx-auto" />
-              <h2 className="text-2xl font-bold text-navy-blue mb-4" style={{ fontFamily: "Georgia, serif" }}>
-                Coming Soon
-              </h2>
-              <p className="text-lg text-gray-600 mb-6">
-                Exclusive tools, perks, and resources for CFC members.
-              </p>
-              <div className="text-left max-w-2xl mx-auto space-y-3 text-gray-700 mb-8">
-                <div className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-3 w-5 h-5" />
-                  <span>Member directory and networking tools</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-3 w-5 h-5" />
-                  <span>Exclusive content and founder resources</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-3 w-5 h-5" />
-                  <span>Event registration and calendar sync</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-3 w-5 h-5" />
-                  <span>Partner discounts and vendor database</span>
-                </div>
-              </div>
-              
-              <Button
-                onClick={handleLogout}
-                variant="outline"
-                className="bg-gray-500 text-white hover:bg-gray-600"
-              >
-                Logout
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="py-20 min-h-screen bg-gradient-to-br from-columbia-blue to-white">
@@ -80,53 +27,49 @@ export default function Portal() {
           <p className="text-xl text-gray-700">Access exclusive resources and community tools.</p>
         </div>
         
-        <Card className="shadow-lg max-w-md mx-auto">
-          <CardContent className="p-8">
-            <form onSubmit={handleLogin} className="space-y-6">
-              <div>
-                <Label htmlFor="loginEmail" className="text-sm font-semibold text-navy-blue">
-                  Email
-                </Label>
-                <Input
-                  type="email"
-                  id="loginEmail"
-                  value={loginData.email}
-                  onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
-                  required
-                  className="mt-2"
-                  placeholder="member@columbiafounders.com"
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="loginPassword" className="text-sm font-semibold text-navy-blue">
-                  Password
-                </Label>
-                <Input
-                  type="password"
-                  id="loginPassword"
-                  value={loginData.password}
-                  onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                  required
-                  className="mt-2"
-                  placeholder="password123"
-                />
-              </div>
-              
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-navy-blue text-white hover:bg-blue-900"
-              >
-                {isLoading ? "Logging in..." : "Login"}
-              </Button>
-            </form>
-            
-            <div className="mt-4 text-sm text-gray-600 text-center">
-              <p>Demo credentials:</p>
-              <p>Email: member@columbiafounders.com</p>
-              <p>Password: password123</p>
+        <Card className="shadow-lg max-w-2xl mx-auto">
+          <CardContent className="p-12 text-center">
+            <div className="mb-8">
+              <Users className="w-16 h-16 text-navy-blue mx-auto mb-6" />
+              <h2 className="text-2xl font-bold text-navy-blue mb-4" style={{ fontFamily: "Georgia, serif" }}>
+                Welcome to Your Member Portal
+              </h2>
+              <p className="text-lg text-gray-600 mb-6">
+                Access your exclusive Columbia Founder Community member resources, networking tools, and community features through our secure Shaker Network platform.
+              </p>
             </div>
+
+            <div className="bg-light-gray rounded-lg p-6 mb-8">
+              <h3 className="text-lg font-semibold text-navy-blue mb-4 flex items-center justify-center">
+                <Shield className="w-5 h-5 mr-2" />
+                Secure Member Access
+              </h3>
+              <div className="text-sm text-gray-600 space-y-2">
+                <p>• Access to member directory and networking tools</p>
+                <p>• Exclusive content and founder resources</p>
+                <p>• Event registration and community calendar</p>
+                <p>• Partner discounts and vendor database</p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <Button
+                onClick={handleImmediateLogin}
+                className="bg-navy-blue hover:bg-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-lg w-full"
+              >
+                Access Member Portal
+                <ExternalLink className="ml-2 w-5 h-5" />
+              </Button>
+              
+              <div className="flex items-center justify-center text-sm text-gray-500">
+                <ArrowRight className="w-4 h-4 mr-2" />
+                Auto-redirecting in 3 seconds...
+              </div>
+            </div>
+
+            <p className="text-xs text-gray-500 mt-6">
+              Login opens securely via Shaker Network platform
+            </p>
           </CardContent>
         </Card>
       </div>
