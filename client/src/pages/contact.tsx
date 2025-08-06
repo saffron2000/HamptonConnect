@@ -140,10 +140,10 @@ export default function Contact() {
               <h3 className="font-bold text-navy-blue mb-3 text-lg" style={{ fontFamily: "Georgia, serif" }}>
                 Strategic Planning Subcommittee
               </h3>
-              <p className="text-gray-600 mb-4 text-sm">
+              <p className="text-gray-600 mb-6 text-sm">
                 For visionary planning and long-term goals.
               </p>
-              <p className="text-navy-blue font-semibold">
+              <p className="text-navy-blue font-semibold mb-2">
                 📧 strategy@columbiafounders.com
               </p>
             </Card>
@@ -154,10 +154,10 @@ export default function Contact() {
               <h3 className="font-bold text-navy-blue mb-3 text-lg" style={{ fontFamily: "Georgia, serif" }}>
                 Finance, Compliance, and Infrastructure Subcommittee
               </h3>
-              <p className="text-gray-600 mb-4 text-sm">
+              <p className="text-gray-600 mb-6 text-sm">
                 For financial matters, compliance questions, and infrastructure insights.
               </p>
-              <p className="text-navy-blue font-semibold">
+              <p className="text-navy-blue font-semibold mb-2">
                 📧 finance@columbiafounders.com
               </p>
             </Card>
@@ -168,10 +168,10 @@ export default function Contact() {
               <h3 className="font-bold text-navy-blue mb-3 text-lg" style={{ fontFamily: "Georgia, serif" }}>
                 Member Relations Subcommittee
               </h3>
-              <p className="text-gray-600 mb-4 text-sm">
+              <p className="text-gray-600 mb-6 text-sm">
                 For member engagement, support, and networking opportunities.
               </p>
-              <p className="text-navy-blue font-semibold">
+              <p className="text-navy-blue font-semibold mb-2">
                 📧 engagement@columbiafounders.com
               </p>
             </Card>
@@ -182,10 +182,10 @@ export default function Contact() {
               <h3 className="font-bold text-navy-blue mb-3 text-lg" style={{ fontFamily: "Georgia, serif" }}>
                 Partner Relations Subcommittee
               </h3>
-              <p className="text-gray-600 mb-4 text-sm">
+              <p className="text-gray-600 mb-6 text-sm">
                 For partnership queries and collaboration opportunities.
               </p>
-              <p className="text-navy-blue font-semibold">
+              <p className="text-navy-blue font-semibold mb-2">
                 📧 partners@columbiafounders.com
               </p>
             </Card>
@@ -196,10 +196,10 @@ export default function Contact() {
               <h3 className="font-bold text-navy-blue mb-3 text-lg" style={{ fontFamily: "Georgia, serif" }}>
                 Tech and Infrastructure Subcommittee
               </h3>
-              <p className="text-gray-600 mb-4 text-sm">
+              <p className="text-gray-600 mb-6 text-sm">
                 For tech support, infrastructure development, and innovative solutions.
               </p>
-              <p className="text-navy-blue font-semibold">
+              <p className="text-navy-blue font-semibold mb-2">
                 📧 tech@columbiafounders.com
               </p>
             </Card>
