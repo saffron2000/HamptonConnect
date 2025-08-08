@@ -12,39 +12,10 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSubmitting(true);
-
-    const formData = new FormData(event.currentTarget);
-    const data = {
-      fullName: formData.get("fullName") as string,
-      email: formData.get("email") as string,
-      message: formData.get("message") as string,
-    };
-
-    try {
-      const response = await apiRequest("POST", "/api/contact", data);
-      const result = await response.json();
-
-      if (result.success) {
-        toast({
-          title: "Message sent!",
-          description: "Thank you for your message. We'll get back to you soon.",
-        });
-        (event.target as HTMLFormElement).reset();
-      } else {
-        throw new Error(result.message || "Failed to send message");
-      }
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Redirect to Shaker Network contact form
+    window.open('https://shakernetwork.com/survey/get-in-touch', '_blank');
   };
 
   return (
@@ -55,7 +26,7 @@ export default function Contact() {
             Get In Touch
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Have questions, ideas, or feedback? We're here to listen. Fill out the form to start a conversation with our dedicated Community Managers.
+            Have questions, ideas, or feedback? We're here to listen. Click below to access our contact form and start a conversation with our dedicated Community Managers.
           </p>
         </div>
 
@@ -111,10 +82,9 @@ export default function Contact() {
               <div className="text-center">
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
                   className="bg-navy-blue text-white px-8 py-3 text-lg font-semibold hover:bg-blue-900 shadow-lg"
                 >
-                  {isSubmitting ? "SENDING..." : "SEND"}
+                  CONTACT US
                 </Button>
               </div>
             </form>

@@ -1,19 +1,9 @@
-import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Users, Shield, ArrowRight } from "lucide-react";
+import { ExternalLink, Users, Shield } from "lucide-react";
 
 export default function Portal() {
-  // Auto-redirect after 3 seconds for better UX
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      window.open('https://shakernetwork.com/login?cd=864428', '_blank');
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleImmediateLogin = () => {
+  const handleLogin = () => {
     window.open('https://shakernetwork.com/login?cd=864428', '_blank');
   };
 
@@ -54,17 +44,12 @@ export default function Portal() {
 
             <div className="space-y-4">
               <Button
-                onClick={handleImmediateLogin}
+                onClick={handleLogin}
                 className="bg-navy-blue hover:bg-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-lg w-full"
               >
                 Access Member Portal
                 <ExternalLink className="ml-2 w-5 h-5" />
               </Button>
-              
-              <div className="flex items-center justify-center text-sm text-gray-500">
-                <ArrowRight className="w-4 h-4 mr-2" />
-                Auto-redirecting in 3 seconds...
-              </div>
             </div>
 
             <p className="text-xs text-gray-500 mt-6">

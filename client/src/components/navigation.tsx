@@ -50,6 +50,23 @@ export function Navigation() {
                 <SheetContent side="left" className="w-80">
                   <div className="mt-6">
                     <NavContent />
+                    <div className="mt-8 space-y-4">
+                      <Link href="/apply" onClick={() => setIsOpen(false)}>
+                        <Button className="bg-navy-blue text-white hover:bg-blue-900 w-full">
+                          Apply
+                        </Button>
+                      </Link>
+                      <Button 
+                        variant="outline" 
+                        className="border-navy-blue text-navy-blue hover:bg-columbia-blue w-full"
+                        onClick={() => {
+                          setIsOpen(false);
+                          window.open('https://shakernetwork.com/login?cd=864428', '_blank');
+                        }}
+                      >
+                        Login
+                      </Button>
+                    </div>
                   </div>
                 </SheetContent>
               </Sheet>
@@ -77,11 +94,13 @@ export function Navigation() {
                 Apply
               </Button>
             </Link>
-            <Link href="/portal">
-              <Button variant="outline" className="border-navy-blue text-navy-blue hover:bg-columbia-blue">
-                Login
-              </Button>
-            </Link>
+            <Button 
+              variant="outline" 
+              className="border-navy-blue text-navy-blue hover:bg-columbia-blue"
+              onClick={() => window.open('https://shakernetwork.com/login?cd=864428', '_blank')}
+            >
+              Login
+            </Button>
           </div>
         </div>
       </div>
