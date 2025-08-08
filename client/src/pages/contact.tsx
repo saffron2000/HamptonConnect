@@ -113,8 +113,8 @@ export default function Contact() {
               <p className="text-gray-600 mb-6 text-sm">
                 For visionary planning and long-term goals.
               </p>
-              <p className="text-navy-blue font-semibold mb-2">
-                📧 strategy@columbiafounders.com
+              <p className="text-navy-blue font-semibold mb-2 break-words">
+                strategy@columbiafounders.com
               </p>
             </Card>
 
@@ -127,8 +127,8 @@ export default function Contact() {
               <p className="text-gray-600 mb-6 text-sm">
                 For financial matters, compliance questions, and infrastructure insights.
               </p>
-              <p className="text-navy-blue font-semibold mb-2">
-                📧 finance@columbiafounders.com
+              <p className="text-navy-blue font-semibold mb-2 break-words">
+                finance@columbiafounders.com
               </p>
             </Card>
 
@@ -141,8 +141,8 @@ export default function Contact() {
               <p className="text-gray-600 mb-6 text-sm">
                 For member engagement, support, and networking opportunities.
               </p>
-              <p className="text-navy-blue font-semibold mb-2">
-                📧 engagement@columbiafounders.com
+              <p className="text-navy-blue font-semibold mb-2 break-words">
+                engagement@columbiafounders.com
               </p>
             </Card>
 
@@ -155,8 +155,8 @@ export default function Contact() {
               <p className="text-gray-600 mb-6 text-sm">
                 For partnership queries and collaboration opportunities.
               </p>
-              <p className="text-navy-blue font-semibold mb-2">
-                📧 partners@columbiafounders.com
+              <p className="text-navy-blue font-semibold mb-2 break-words">
+                partners@columbiafounders.com
               </p>
             </Card>
 
@@ -169,8 +169,8 @@ export default function Contact() {
               <p className="text-gray-600 mb-6 text-sm">
                 For tech support, infrastructure development, and innovative solutions.
               </p>
-              <p className="text-navy-blue font-semibold mb-2">
-                📧 tech@columbiafounders.com
+              <p className="text-navy-blue font-semibold mb-2 break-words">
+                tech@columbiafounders.com
               </p>
             </Card>
           </div>
