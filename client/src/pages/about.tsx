@@ -47,7 +47,7 @@ const leaders = [
   {
     name: "Rafael G. Canario",
     title: "Founder & CEO, Shaker",
-    description: "Founder of Shaker, a SaaS platform powering engagement for universities, accelerators, and membership networks. First-gen entrepreneur building tech to streamline community operations.",
+    description: "Founder of Shaker, a SaaS platform powering engagement for universities, accelerators, and membership networks. Serial entrepreneur streamlining community management around the world.",
     imageUrl: RafaelPhoto
   }
 ];
@@ -101,6 +101,13 @@ export default function About() {
             Leveraging Columbia University's world-class network, cutting-edge research, and entrepreneurial ecosystem to support our founders' success. From campus to IPO, Columbia connections open doors.
           </p>
         </Card>
+
+        {/* Disclaimer */}
+        <div className="mt-12 text-center">
+          <p className="text-sm text-gray-600 max-w-4xl mx-auto">
+            The Columbia Founders Community is a not-for-profit initiative, not affiliated with Columbia University, and independently organized by alumni from Columbia who have also founded their own companies.
+          </p>
+        </div>
       </div>
     </section>
   );
