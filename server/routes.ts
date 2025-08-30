@@ -4,6 +4,14 @@ import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
 
+// Extend express-session types
+declare module 'express-session' {
+  interface SessionData {
+    userId?: string;
+    username?: string;
+  }
+}
+
 const loginSchema = z.object({
   username: z.string().email(),
   password: z.string().min(1),
@@ -49,6 +57,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
+      // Store user data in session
+      req.session.userId = user.id;
+      req.session.username = user.username;
+
       res.json({ 
         success: true, 
         user: { id: user.id, username: user.username }
@@ -61,6 +73,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Portal logout
+  app.post("/api/logout", (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ 
+          success: false, 
+          message: "Could not log out" 
+        });
+      }
+      res.json({ 
+        success: true, 
+        message: "Logged out successfully" 
+      });
+    });
+  });
+
+  // Check session status
+  app.get("/api/session", (req, res) => {
+    if (req.session.userId) {
+      res.json({ 
+        success: true, 
+        user: { 
+          id: req.session.userId, 
+          username: req.session.username 
+        }
+      });
+    } else {
+      res.status(401).json({ 
+        success: false, 
+        message: "Not authenticated" 
+      });
+    }
+  });
+
   // Google Calendar events
   app.get("/api/events", async (req, res) => {
     try {
@@ -68,9 +114,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const apiKey = process.env.GOOGLE_CALENDAR_API_KEY;
       
       if (!apiKey) {
-        return res.status(500).json({ 
-          success: false, 
-          message: "Google Calendar API key not configured" 
+        console.warn('Google Calendar API key not configured, returning empty events list');
+        // Return empty events array instead of error to prevent deployment crashes
+        return res.json({ 
+          success: true, 
+          events: [],
+          message: "Calendar integration not configured"
         });
       }
 
@@ -80,46 +129,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${now}&maxResults=${maxResults}&singleEvents=true&orderBy=startTime`;
 
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
       
       if (!response.ok) {
         console.error('Calendar API Error:', response.status, response.statusText);
-        return res.status(response.status).json({ 
-          success: false, 
-          message: `Calendar API error: ${response.statusText}` 
+        // Return empty events instead of error to prevent crashes
+        return res.json({ 
+          success: true, 
+          events: [],
+          message: "Unable to load calendar events at this time"
         });
       }
 
       const data = await response.json();
       
-      // Transform events to our format
-      const events = data.items?.map((event: any) => {
-        const startDate = event.start?.dateTime || event.start?.date;
-        const formattedDate = startDate ? new Date(startDate).toLocaleString('en-US', {
-          timeZone: 'America/New_York',
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          hour: event.start?.dateTime ? 'numeric' : undefined,
-          minute: event.start?.dateTime ? '2-digit' : undefined
-        }) : 'Date TBD';
+      // Transform events to our format with additional error checking
+      const events = (data.items || []).map((event: any) => {
+        try {
+          const startDate = event.start?.dateTime || event.start?.date;
+          const formattedDate = startDate ? new Date(startDate).toLocaleString('en-US', {
+            timeZone: 'America/New_York',
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: event.start?.dateTime ? 'numeric' : undefined,
+            minute: event.start?.dateTime ? '2-digit' : undefined
+          }) : 'Date TBD';
 
-        return {
-          id: event.id,
-          title: event.summary || 'Untitled Event',
-          date: formattedDate,
-          location: event.location || null,
-          startTime: startDate
-        };
-      }) || [];
+          return {
+            id: event.id || 'unknown',
+            title: event.summary || 'Untitled Event',
+            date: formattedDate,
+            location: event.location || null,
+            startTime: startDate
+          };
+        } catch (eventError) {
+          console.warn('Error processing calendar event:', eventError);
+          return null;
+        }
+      }).filter(Boolean); // Remove any null events
 
       res.json({ success: true, events });
     } catch (error) {
       console.error('Calendar API Error:', error);
-      res.status(500).json({ 
-        success: false, 
-        message: error instanceof Error ? error.message : "Failed to fetch events" 
+      // Return empty events instead of error to prevent deployment crashes
+      res.json({ 
+        success: true, 
+        events: [],
+        message: "Unable to load calendar events at this time"
       });
     }
   });

@@ -82,3 +82,58 @@ The application defines two main entities:
 - **Typeform**: External form builder for membership applications (placeholder implementation)
 - **Unsplash**: Image hosting service for member photos and event images
 - **Email Service**: Contact form submissions (ready for integration with services like SendGrid or AWS SES)
+
+## Deployment Configuration
+
+### Required Environment Variables
+
+The application requires the following environment variables for proper deployment:
+
+#### GOOGLE_CALENDAR_API_KEY
+- **Purpose**: Enables integration with Google Calendar API to fetch community events
+- **Required for**: Events page functionality
+- **Behavior without**: Application gracefully falls back to showing empty events list with informational message
+- **How to obtain**: 
+  1. Create a project in Google Cloud Console
+  2. Enable the Google Calendar API
+  3. Create credentials (API key)
+  4. Restrict the key to Calendar API for security
+
+#### SESSION_SECRET
+- **Purpose**: Secures user sessions and authentication cookies
+- **Required for**: Member portal login functionality and session management
+- **Behavior without**: Uses development fallback secret (insecure for production)
+- **Security**: Should be a long, random string (32+ characters) unique to each deployment environment
+- **Example generation**: `openssl rand -base64 32`
+
+### Deployment Checklist
+
+Before deploying to production:
+
+1. **Configure Environment Variables**:
+   - Set `GOOGLE_CALENDAR_API_KEY` with valid Google Calendar API credentials
+   - Set `SESSION_SECRET` with a secure, randomly generated string
+   - Ensure `NODE_ENV=production` for production deployments
+
+2. **Security Considerations**:
+   - Session cookies are automatically configured as secure in production
+   - Google Calendar API key should be restricted to specific APIs and referrers
+   - Never commit environment variables to version control
+
+3. **Error Handling**:
+   - Calendar API failures gracefully degrade to empty events list
+   - Missing environment variables are logged with clear warnings
+   - Server startup validates all required environment variables
+
+### Environment Setup Commands
+
+For local development:
+```bash
+# Create .env file (not committed to repo)
+echo "GOOGLE_CALENDAR_API_KEY=your_api_key_here" > .env
+echo "SESSION_SECRET=your_secret_here" >> .env
+```
+
+For Replit Deployment:
+- Configure secrets in the Replit deployment environment variables section
+- Secrets are automatically available as environment variables at runtime
