@@ -68,16 +68,24 @@ export default function Events() {
         {/* Calendar Embed */}
         <Card className="shadow-lg mb-12">
           <CardContent className="p-8">
-            <div className="text-center py-16 border-2 border-dashed border-gray-300 rounded-lg">
-              <Calendar className="text-4xl text-gray-400 mb-4 mx-auto" />
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">Google Calendar Integration</h3>
-              <p className="text-gray-500 mb-4">Member event calendar will be embedded here</p>
-              <div className="bg-gray-100 rounded p-4 text-sm text-gray-600">
-                <strong>Implementation:</strong><br />
-                <code className="text-xs">
-                  {`<iframe src="https://calendar.google.com/calendar/embed?src=[CALENDAR-ID]" width="100%" height="600" frameborder="0"></iframe>`}
-                </code>
-              </div>
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold text-navy-blue mb-2" style={{ fontFamily: "Georgia, serif" }}>
+                Member Events Calendar
+              </h3>
+              <p className="text-gray-700">
+                Stay up-to-date with all Columbia Founder Community events and activities
+              </p>
+            </div>
+            <div className="flex justify-center">
+              <iframe 
+                src="https://calendar.google.com/calendar/embed?src=c_a59c7be66200309967d3d4261430affb564c9352ee32f852c52a5fd9479db893%40group.calendar.google.com&ctz=America%2FNew_York" 
+                style={{ border: 0 }} 
+                width="800" 
+                height="600" 
+                frameBorder="0" 
+                scrolling="no"
+                className="rounded-lg shadow-md max-w-full"
+              />
             </div>
           </CardContent>
         </Card>
