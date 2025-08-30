@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import CFCLogo from "@assets/cfc-logo-new.png";
 
 export function Footer() {
   return (
@@ -7,9 +8,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <img 
-              src="/cfc-logo.jpg" 
+              src={CFCLogo} 
               alt="CFC Logo" 
-              className="h-12 w-auto mb-4 brightness-0 invert"
+              className="h-12 w-auto mb-4"
             />
             <p className="text-gray-300">
               Columbia Founder Community - connecting exceptional Columbia-connected entrepreneurs.
