@@ -32,7 +32,7 @@ export default function Events() {
         </div>
 
         {/* Event Filters */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
+        <div className="flex justify-center gap-4 mb-8">
           <Button
             onClick={() => setActiveFilter("upcoming")}
             className={`px-6 py-2 font-medium ${
@@ -52,16 +52,6 @@ export default function Events() {
             }`}
           >
             Past
-          </Button>
-          <Button
-            onClick={() => setActiveFilter("members-only")}
-            className={`px-6 py-2 font-medium ${
-              activeFilter === "members-only"
-                ? "bg-navy-blue text-white"
-                : "border border-navy-blue text-navy-blue bg-white hover:bg-columbia-blue"
-            }`}
-          >
-            Members Only
           </Button>
         </div>
 
