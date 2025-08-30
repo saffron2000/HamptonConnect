@@ -43,7 +43,7 @@ export function Footer() {
           </div>
           <div>
             <h4 className="font-semibold mb-4">Contact Info</h4>
-            <p className="text-gray-300">hello@columbiafounders.com</p>
+            <p className="text-gray-300">community@columbiafounders.com</p>
             <p className="text-gray-300">New York, NY</p>
           </div>
         </div>
