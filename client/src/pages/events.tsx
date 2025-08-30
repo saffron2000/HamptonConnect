@@ -1,25 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+
+interface CalendarEvent {
+  id: string;
+  title: string;
+  date: string;
+  location?: string;
+  startTime: string;
+}
 
 export default function Events() {
   const [activeFilter, setActiveFilter] = useState("upcoming");
 
-  const upcomingEvents = [
-    {
-      title: "Monthly Founder Dinner",
-      date: "December 15, 2024 • 7:00 PM",
-      description: "Exclusive dinner for CFC members in Manhattan. Network with fellow Columbia founders over fine dining.",
-      type: "members-only"
+  // Fetch events from Google Calendar API
+  const { data: eventsData, isLoading, error } = useQuery({
+    queryKey: ['/api/events'],
+    queryFn: async () => {
+      const response = await fetch('/api/events', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch events: ${response.status}`);
+      }
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.message || 'API returned error');
+      }
+      return data;
     },
-    {
-      title: "Startup Pitch Workshop",
-      date: "January 8, 2025 • 6:30 PM",
-      description: "Perfect your pitch with feedback from successful Columbia alumni investors and entrepreneurs.",
-      type: "open"
-    }
-  ];
+    retry: 1,
+    retryDelay: 1000
+  });
+
+  const events: CalendarEvent[] = eventsData?.events || [];
 
   return (
     <section className="py-20">
@@ -85,28 +104,43 @@ export default function Events() {
           <h2 className="text-2xl font-bold text-navy-blue mb-6" style={{ fontFamily: "Georgia, serif" }}>
             Upcoming Events
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {upcomingEvents.map((event, index) => (
-              <Card key={index} className="bg-light-gray p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="font-semibold text-navy-blue text-lg">{event.title}</h3>
-                    <p className="text-gray-600">{event.date}</p>
+          
+          {isLoading && (
+            <div className="text-center py-8">
+              <p className="text-gray-600">Loading events...</p>
+            </div>
+          )}
+          
+          {error && (
+            <div className="text-center py-8">
+              <p className="text-red-600">Failed to load events. Please try again later.</p>
+            </div>
+          )}
+          
+          {!isLoading && !error && events.length === 0 && (
+            <div className="text-center py-8">
+              <p className="text-gray-600">No upcoming events scheduled.</p>
+            </div>
+          )}
+          
+          {!isLoading && !error && events.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {events.map((event) => (
+                <Card key={event.id} className="bg-light-gray p-6">
+                  <div className="mb-4">
+                    <h3 className="font-semibold text-navy-blue text-lg mb-2">{event.title}</h3>
+                    <p className="text-gray-600 mb-2">{event.date}</p>
+                    {event.location && (
+                      <div className="flex items-center text-gray-600">
+                        <MapPin className="w-4 h-4 mr-1" />
+                        <p className="text-sm">{event.location}</p>
+                      </div>
+                    )}
                   </div>
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm ${
-                      event.type === "members-only"
-                        ? "bg-navy-blue text-white"
-                        : "bg-columbia-blue text-navy-blue"
-                    }`}
-                  >
-                    {event.type === "members-only" ? "Members Only" : "Open"}
-                  </span>
-                </div>
-                <p className="text-gray-700">{event.description}</p>
-              </Card>
-            ))}
-          </div>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

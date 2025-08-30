@@ -61,6 +61,69 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Google Calendar events
+  app.get("/api/events", async (req, res) => {
+    try {
+      const calendarId = 'c_a59c7be66200309967d3d4261430affb564c9352ee32f852c52a5fd9479db893@group.calendar.google.com';
+      const apiKey = process.env.GOOGLE_CALENDAR_API_KEY;
+      
+      if (!apiKey) {
+        return res.status(500).json({ 
+          success: false, 
+          message: "Google Calendar API key not configured" 
+        });
+      }
+
+      // Get current time and future time for filtering
+      const now = new Date().toISOString();
+      const maxResults = 10;
+
+      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${now}&maxResults=${maxResults}&singleEvents=true&orderBy=startTime`;
+
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        console.error('Calendar API Error:', response.status, response.statusText);
+        return res.status(response.status).json({ 
+          success: false, 
+          message: `Calendar API error: ${response.statusText}` 
+        });
+      }
+
+      const data = await response.json();
+      
+      // Transform events to our format
+      const events = data.items?.map((event: any) => {
+        const startDate = event.start?.dateTime || event.start?.date;
+        const formattedDate = startDate ? new Date(startDate).toLocaleString('en-US', {
+          timeZone: 'America/New_York',
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: event.start?.dateTime ? 'numeric' : undefined,
+          minute: event.start?.dateTime ? '2-digit' : undefined
+        }) : 'Date TBD';
+
+        return {
+          id: event.id,
+          title: event.summary || 'Untitled Event',
+          date: formattedDate,
+          location: event.location || null,
+          startTime: startDate
+        };
+      }) || [];
+
+      res.json({ success: true, events });
+    } catch (error) {
+      console.error('Calendar API Error:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: error instanceof Error ? error.message : "Failed to fetch events" 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
