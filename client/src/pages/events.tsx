@@ -1,44 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-
-interface CalendarEvent {
-  id: string;
-  title: string;
-  date: string;
-  location?: string;
-  startTime: string;
-}
 
 export default function Events() {
   const [activeFilter, setActiveFilter] = useState("upcoming");
-
-  // Fetch events from Google Calendar API
-  const { data: eventsData, isLoading, error } = useQuery({
-    queryKey: ['/api/events'],
-    queryFn: async () => {
-      const response = await fetch('/api/events', {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!response.ok) {
-        throw new Error(`Failed to fetch events: ${response.status}`);
-      }
-      const data = await response.json();
-      if (!data.success) {
-        throw new Error(data.message || 'API returned error');
-      }
-      return data;
-    },
-    retry: 1,
-    retryDelay: 1000
-  });
-
-  const events: CalendarEvent[] = eventsData?.events || [];
 
   return (
     <section className="py-20">
@@ -99,48 +64,15 @@ export default function Events() {
           </CardContent>
         </Card>
 
-        {/* Upcoming Events Preview */}
-        <div>
+        {/* Event Information */}
+        <div className="text-center">
           <h2 className="text-2xl font-bold text-navy-blue mb-6" style={{ fontFamily: "Georgia, serif" }}>
-            Upcoming Events
+            Event Information
           </h2>
-          
-          {isLoading && (
-            <div className="text-center py-8">
-              <p className="text-gray-600">Loading events...</p>
-            </div>
-          )}
-          
-          {error && (
-            <div className="text-center py-8">
-              <p className="text-red-600">Failed to load events. Please try again later.</p>
-            </div>
-          )}
-          
-          {!isLoading && !error && events.length === 0 && (
-            <div className="text-center py-8">
-              <p className="text-gray-600">No upcoming events scheduled.</p>
-            </div>
-          )}
-          
-          {!isLoading && !error && events.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {events.map((event) => (
-                <Card key={event.id} className="bg-light-gray p-6">
-                  <div className="mb-4">
-                    <h3 className="font-semibold text-navy-blue text-lg mb-2">{event.title}</h3>
-                    <p className="text-gray-600 mb-2">{event.date}</p>
-                    {event.location && (
-                      <div className="flex items-center text-gray-600">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        <p className="text-sm">{event.location}</p>
-                      </div>
-                    )}
-                  </div>
-                </Card>
-              ))}
-            </div>
-          )}
+          <p className="text-gray-600 text-lg">
+            All upcoming events and activities are displayed in the calendar above. 
+            Check the calendar regularly for the latest updates on member events.
+          </p>
         </div>
       </div>
     </section>
