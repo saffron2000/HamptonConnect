@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import CFCLogo from "@assets/cfc-logo-new.png";
+import { isBlogEnabled } from "@shared/blog-feature";
 
 export function Footer() {
   return (
@@ -19,6 +20,11 @@ export function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-gray-300">
+              {isBlogEnabled(import.meta.env.VITE_BLOG_ENABLED) && <li>
+                <Link href="/blog" className="hover:text-white transition-colors">
+                  Blog
+                </Link>
+              </li>}
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
                   About Us

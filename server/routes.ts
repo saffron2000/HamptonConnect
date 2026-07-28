@@ -1,8 +1,10 @@
-import type { Express } from "express";
+import type { Express, NextFunction, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
+import { getPreviewPost, getPublishedPost, getPublishedPosts } from "./blog";
+import { isBlogEnabled } from "@shared/blog-feature";
 
 // Extend express-session types
 declare module 'express-session' {
@@ -18,6 +20,48 @@ const loginSchema = z.object({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  const requireBlogEnabled = (_req: Request, res: Response, next: NextFunction) => {
+    if (!isBlogEnabled(process.env.VITE_BLOG_ENABLED)) return res.status(404).json({ message: "Not found" });
+    next();
+  };
+  app.get("/api/blog/posts", requireBlogEnabled, async (_req, res, next) => {
+    try { res.json(await getPublishedPosts()); } catch (error) { next(error); }
+  });
+  app.get("/api/blog/posts/:slug", requireBlogEnabled, async (req, res, next) => {
+    try {
+      const post = await getPublishedPost(req.params.slug);
+      if (!post) return res.status(404).json({ message: "Article not found" });
+      res.json(post);
+    } catch (error) { next(error); }
+  });
+  app.get("/api/blog/preview/:id", async (req, res, next) => {
+    try {
+      if (!process.env.BLOG_PREVIEW_SECRET || req.query.secret !== process.env.BLOG_PREVIEW_SECRET) return res.status(401).json({ message: "Invalid preview link" });
+      const post = await getPreviewPost(req.params.id);
+      if (!post) return res.status(404).json({ message: "Draft not found" });
+      res.set("X-Robots-Tag", "noindex, nofollow").json(post);
+    } catch (error) { next(error); }
+  });
+  app.get("/sitemap.xml", async (_req, res, next) => {
+    try {
+      const base = (process.env.PUBLIC_SITE_URL || "https://columbiafounders.com").replace(/\/$/, "");
+      const enabled = isBlogEnabled(process.env.VITE_BLOG_ENABLED);
+      const posts = enabled ? await getPublishedPosts() : [];
+      const paths = ["", "/about", "/events", "/contact", "/apply", ...(enabled ? ["/blog"] : [])];
+      const urls = paths.map(path => `<url><loc>${base}${path || "/"}</loc></url>`);
+      posts.forEach(post => urls.push(`<url><loc>${base}/blog/${encodeURIComponent(post.slug)}</loc><lastmod>${new Date(post._updatedAt).toISOString()}</lastmod></url>`));
+      res.type("application/xml").send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join("")}</urlset>`);
+    } catch (error) { next(error); }
+  });
+  app.get("/blog/rss.xml", requireBlogEnabled, async (_req, res, next) => {
+    try {
+      const base = (process.env.PUBLIC_SITE_URL || "https://columbiafounders.com").replace(/\/$/, "");
+      const escape = (value: string) => value.replace(/[<>&'\"]/g, char => ({"<":"&lt;", ">":"&gt;", "&":"&amp;", "'":"&apos;", "\"":"&quot;"}[char]!));
+      const posts = await getPublishedPosts();
+      const items = posts.map(post => `<item><title>${escape(post.title)}</title><link>${base}/blog/${encodeURIComponent(post.slug)}</link><guid>${base}/blog/${encodeURIComponent(post.slug)}</guid><description>${escape(post.excerpt)}</description><pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate></item>`).join("");
+      res.type("application/rss+xml").send(`<?xml version="1.0"?><rss version="2.0"><channel><title>Columbia Founders Insights</title><link>${base}/blog</link><description>Practical perspectives from the Columbia founder community.</description>${items}</channel></rss>`);
+    } catch (error) { next(error); }
+  });
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
     try {
