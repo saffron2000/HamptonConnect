@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { isBlogEnabled } from "@shared/blog-feature";
 
 export function Navigation() {
   const [location] = useLocation();
@@ -13,6 +14,7 @@ export function Navigation() {
     { href: "/about", label: "About Us" },
     { href: "/contact", label: "Contact Us" },
     { href: "/events", label: "Member Events" },
+    ...(isBlogEnabled(import.meta.env.VITE_BLOG_ENABLED) ? [{ href: "/blog", label: "Blog" }] : []),
     { href: "/portal", label: "Member Portal" },
   ];
 
@@ -22,8 +24,8 @@ export function Navigation() {
         <Link
           key={item.href}
           href={item.href}
-          className={`text-navy-blue hover:text-blue-800 transition-colors font-medium ${
-            location === item.href ? "font-bold" : ""
+          className={`text-navy-blue hover:text-blue-800 transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-blue ${
+            location === item.href || (item.href === "/blog" && location.startsWith("/blog/")) ? "font-bold" : ""
           }`}
           onClick={() => setIsOpen(false)}
         >
@@ -43,7 +45,7 @@ export function Navigation() {
             <div className="lg:hidden">
               <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-navy-blue">
+                  <Button variant="ghost" size="icon" className="text-navy-blue" aria-label="Open navigation menu">
                     <Menu className="h-6 w-6" />
                   </Button>
                 </SheetTrigger>

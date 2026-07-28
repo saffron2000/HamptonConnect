@@ -1,0 +1,1 @@
+{"name":"cfc-editorial-studio","private":true,"version":"1.0.0","scripts":{"deploy":"sanity deploy"},"dependencies":{"sanity":"^3.99.0","styled-components":"^6.1.19"},"devDependencies":{"typescript":"^5.6.3"}}
