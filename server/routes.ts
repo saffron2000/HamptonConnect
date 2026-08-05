@@ -1,10 +1,9 @@
-import type { Express, NextFunction, Request, Response } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
 import { getPreviewPost, getPublishedPost, getPublishedPosts } from "./blog";
-import { isBlogEnabled } from "@shared/blog-feature";
 
 // Extend express-session types
 declare module 'express-session' {
@@ -20,14 +19,10 @@ const loginSchema = z.object({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  const requireBlogEnabled = (_req: Request, res: Response, next: NextFunction) => {
-    if (!isBlogEnabled(process.env.VITE_BLOG_ENABLED)) return res.status(404).json({ message: "Not found" });
-    next();
-  };
-  app.get("/api/blog/posts", requireBlogEnabled, async (_req, res, next) => {
+  app.get("/api/blog/posts", async (_req, res, next) => {
     try { res.json(await getPublishedPosts()); } catch (error) { next(error); }
   });
-  app.get("/api/blog/posts/:slug", requireBlogEnabled, async (req, res, next) => {
+  app.get("/api/blog/posts/:slug", async (req, res, next) => {
     try {
       const post = await getPublishedPost(req.params.slug);
       if (!post) return res.status(404).json({ message: "Article not found" });
@@ -45,15 +40,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/sitemap.xml", async (_req, res, next) => {
     try {
       const base = (process.env.PUBLIC_SITE_URL || "https://columbiafounders.com").replace(/\/$/, "");
-      const enabled = isBlogEnabled(process.env.VITE_BLOG_ENABLED);
-      const posts = enabled ? await getPublishedPosts() : [];
-      const paths = ["", "/about", "/events", "/contact", "/apply", ...(enabled ? ["/blog"] : [])];
+      const posts = await getPublishedPosts();
+      const paths = ["", "/about", "/events", "/contact", "/apply", "/blog"];
       const urls = paths.map(path => `<url><loc>${base}${path || "/"}</loc></url>`);
       posts.forEach(post => urls.push(`<url><loc>${base}/blog/${encodeURIComponent(post.slug)}</loc><lastmod>${new Date(post._updatedAt).toISOString()}</lastmod></url>`));
       res.type("application/xml").send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join("")}</urlset>`);
     } catch (error) { next(error); }
   });
-  app.get("/blog/rss.xml", requireBlogEnabled, async (_req, res, next) => {
+  app.get("/blog/rss.xml", async (_req, res, next) => {
     try {
       const base = (process.env.PUBLIC_SITE_URL || "https://columbiafounders.com").replace(/\/$/, "");
       const escape = (value: string) => value.replace(/[<>&'\"]/g, char => ({"<":"&lt;", ">":"&gt;", "&":"&amp;", "'":"&apos;", "\"":"&quot;"}[char]!));
