@@ -16,7 +16,7 @@ function get(port: number, path: string): Promise<{ status: number; body: string
   });
 }
 
-test("blog routes enforce flag, preview authorization, and public feeds", async t => {
+test("blog routes serve published CMS content, preview authorization, and public feeds", async t => {
   process.env.SANITY_PROJECT_ID = "example";
   process.env.SANITY_API_READ_TOKEN = "viewer-token";
   process.env.BLOG_PREVIEW_SECRET = "valid-preview-secret";
@@ -29,11 +29,7 @@ test("blog routes enforce flag, preview authorization, and public feeds", async 
   const address = server.address(); if (!address || typeof address === "string") throw new Error("Test server failed to listen");
   t.after(() => server.close());
 
-  process.env.VITE_BLOG_ENABLED = "false";
-  assert.equal((await get(address.port, "/api/blog/posts")).status, 404);
-  assert.doesNotMatch((await get(address.port, "/sitemap.xml")).body, /\/blog/);
-
-  process.env.VITE_BLOG_ENABLED = "true";
+  delete process.env.VITE_BLOG_ENABLED;
   const posts = await get(address.port, "/api/blog/posts");
   assert.equal(posts.status, 200); assert.match(posts.body, /Public article/);
   const invalid = await get(address.port, "/api/blog/preview/published?secret=wrong");

@@ -2,7 +2,7 @@
 
 The website stays in the existing Replit application: Vite builds the React client, Express serves that client and the API on port 5000, and Replit's Run button starts `npm run dev`. Replit Deployments use `npm run build` followed by `npm run start` as defined in `.replit`. Sanity stores articles and images and provides managed editor accounts. No SQL migration, local computer, local server, or custom blog password is involved.
 
-The blog is hidden by default unless `VITE_BLOG_ENABLED` is exactly `true`. When disabled, its header/footer links and public client routes are absent, public blog API/RSS requests return 404, and the sitemap omits blog URLs. The protected `/blog/preview/:id` route remains available so an authorized editor can preview a draft; it still requires the preview bearer secret and server-only Sanity Viewer token and is always `noindex, nofollow`.
+The blog is public in the existing website navigation, client routes, public API, RSS feed, and sitemap. Published Sanity articles appear automatically when the website server has the Sanity project configuration below. The protected `/blog/preview/:id` route remains available so an authorized editor can preview a draft; it still requires the preview bearer secret and server-only Sanity Viewer token and is always `noindex, nofollow`.
 
 ## 1. Create the Sanity project
 
@@ -34,7 +34,6 @@ Open **Tools → Secrets** in Replit and add every row below. Replit Secrets are
 | `SANITY_API_READ_TOKEN` | Website server only | Sanity API Viewer token; `sk...` | **Server-only secret** | Yes |
 | `BLOG_PREVIEW_SECRET` | Website server | Generate in Replit Shell with `openssl rand -base64 32`; `mR8...Q=` | **Server-only bearer secret** | Yes |
 | `PUBLIC_SITE_URL` | Website server | Replit review origin first, production domain at launch; `https://<repl-slug>.<user>.replit.dev` | Public URL | Yes |
-| `VITE_BLOG_ENABLED` | Client build and website server | `true` for review/launch; remove it or use `false` to hide | Public feature flag | **Restart and rebuild** |
 | `SESSION_SECRET` | Existing Express sessions | Generate in Replit Shell with `openssl rand -base64 32`; `qP2...A=` | **Server-only secret** | Yes |
 | `GOOGLE_CALENDAR_API_KEY` | Existing Events integration | Existing Google Cloud key; `AIza...` | Server-only | Yes |
 | `SANITY_STUDIO_PROJECT_ID` | Studio deployment build | Same value as `SANITY_PROJECT_ID`; `a1b2c3d4` | Public identifier embedded in Studio | Before Studio deploy |
@@ -60,8 +59,8 @@ The Studio receives its project ID and dataset from the `SANITY_STUDIO_*` Replit
 
 ## 5. Preview the blog in Replit
 
-1. Add all Secrets above and set `VITE_BLOG_ENABLED=true`.
-2. Stop and restart the Replit Run process because Vite reads the flag at startup.
+1. Add all Secrets above.
+2. Stop and restart the Replit Run process so the server reads the Sanity configuration.
 3. Open the Replit webview in a new tab and append `/blog` to its HTTPS origin.
 4. With no published articles, confirm the **Stories are on the way** empty state.
 5. Create a draft in hosted Studio, then use the document menu's **Open preview** action. It opens the draft on the configured Replit URL without asking for a secret.
@@ -87,15 +86,15 @@ Sanity stores uploaded originals, generated image assets, drafts, and document h
 ## 7. Deploy the website
 
 1. In Replit **Deployments**, create or update the Autoscale deployment.
-2. Add the same website Secrets from section 3 to the Deployment. Set `PUBLIC_SITE_URL=https://columbiafounders.com`. Keep `VITE_BLOG_ENABLED=false` until approval, or `true` when ready to expose the blog.
+2. Add the same website Secrets from section 3 to the Deployment. Set `PUBLIC_SITE_URL=https://columbiafounders.com`.
 3. Set the build command exactly to `npm run build`.
 4. Set the run command exactly to `npm run start`.
 5. Deploy. Express serves `dist/public` and the API from one process, and its static fallback returns `index.html` for direct refreshes of `/blog/:slug`.
-6. After approval, set `VITE_BLOG_ENABLED=true`, rebuild/redeploy, update `SANITY_STUDIO_SITE_URL` to the production origin, redeploy Studio, and confirm the production URLs below.
+6. After approval, update `SANITY_STUDIO_SITE_URL` to the production origin, redeploy Studio, and confirm the production URLs below.
 
 ## 8. Troubleshooting
 
-- **Blog link missing or `/blog` shows Not Found:** set `VITE_BLOG_ENABLED` to the lowercase value `true`, restart Run, and rebuild the Deployment.
+- **`/blog` shows the empty state:** confirm `SANITY_PROJECT_ID` is configured on the website server and that at least one Sanity article is published with a slug and non-future publication date.
 - **Empty state despite a Studio document:** confirm the document is published, has a slug and publication date, and its date is not in the future. Drafts and unpublished/future documents are intentionally absent from the index, public API, related articles, sitemap, and RSS.
 - **Preview says unauthorized:** ensure `BLOG_PREVIEW_SECRET` and `SANITY_STUDIO_PREVIEW_SECRET` match exactly, then restart Replit and redeploy Studio. Confirm the Viewer token is in `SANITY_API_READ_TOKEN`.
 - **Preview opens the wrong site:** update `SANITY_STUDIO_SITE_URL` to the exact HTTPS Replit or production origin and redeploy Studio.

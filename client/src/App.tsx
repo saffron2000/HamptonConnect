@@ -14,9 +14,6 @@ import Portal from "@/pages/portal";
 import NotFound from "@/pages/not-found";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
-import { isBlogEnabled } from "@shared/blog-feature";
-
-const blogEnabled = isBlogEnabled(import.meta.env.VITE_BLOG_ENABLED);
 
 function Router() {
   return (
@@ -27,9 +24,9 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/events" component={Events} />
       <Route path="/portal" component={Portal} />
-      {blogEnabled && <Route path="/blog" component={Blog} />}
+      <Route path="/blog" component={Blog} />
       <Route path="/blog/preview/:id">{() => <BlogPost preview />}</Route>
-      {blogEnabled && <Route path="/blog/:slug">{() => <BlogPost />}</Route>}
+      <Route path="/blog/:slug">{() => <BlogPost />}</Route>
       <Route component={NotFound} />
     </Switch>
   );

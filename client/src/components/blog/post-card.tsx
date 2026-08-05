@@ -8,10 +8,11 @@ export function PostCard({ post }: { post: BlogPost }) {
       {post.featuredImage ? <img src={post.featuredImage.url} alt={post.featuredImage.alt} width={post.featuredImage.width || 1200} height={post.featuredImage.height || 675} loading="lazy" className="aspect-[16/10] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none" /> : <div className="aspect-[16/10] bg-columbia-blue" aria-hidden="true" />}
     </Link>
     <div className="flex flex-1 flex-col pt-5">
-      {post.eyebrow && <p className="mb-2 text-xs font-bold uppercase tracking-[.16em] text-navy-blue">{post.eyebrow}</p>}
+      {(post.categories[0] || post.tags[0] || post.eyebrow) && <p className="mb-2 text-xs font-bold uppercase tracking-[.16em] text-navy-blue">{post.categories[0] || post.tags[0] || post.eyebrow}</p>}
       <h2 className="text-2xl font-bold leading-tight text-navy-blue"><Link href={`/blog/${post.slug}`} className="underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-blue">{post.title}</Link></h2>
       <p className="mt-3 flex-1 leading-relaxed text-gray-700">{post.excerpt}</p>
       <p className="mt-5 text-sm text-gray-600">By {post.author.name} <span aria-hidden="true">·</span> {formatDate(post.publishedAt)} <span aria-hidden="true">·</span> {post.readingMinutes} min read</p>
+      <Link href={`/blog/${post.slug}`} className="mt-5 inline-flex font-semibold text-navy-blue underline decoration-2 underline-offset-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-blue">Read More <span className="sr-only">: {post.title}</span> →</Link>
     </div>
   </article>;
 }
