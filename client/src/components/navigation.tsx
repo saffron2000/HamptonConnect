@@ -3,18 +3,16 @@ import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { isBlogEnabled } from "@shared/blog-feature";
 
 export function Navigation() {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { href: "/", label: "Homepage" },
     { href: "/about", label: "About Us" },
     { href: "/contact", label: "Contact Us" },
     { href: "/events", label: "Member Events" },
-    ...(isBlogEnabled(import.meta.env.VITE_BLOG_ENABLED) ? [{ href: "/blog", label: "Blog" }] : []),
+    { href: "/blog", label: "Blog" },
     { href: "/portal", label: "Member Portal" },
   ];
 
