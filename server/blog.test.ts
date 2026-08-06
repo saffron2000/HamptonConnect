@@ -1,46 +1,49 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { getPublishedPost, getPublishedPosts, __testing } from "./blog";
 
-test("published query excludes drafts and future articles", async () => {
-  process.env.SANITY_PROJECT_ID = "example";
-  let requestedQuery = "";
-  global.fetch = (async (input: string | URL | Request) => {
-    const url = new URL(String(input)); requestedQuery = url.searchParams.get("query") || "";
-    return new Response(JSON.stringify({ result: [] }), { status: 200, headers: { "content-type": "application/json" } });
-  }) as typeof fetch;
-  const { getPublishedPosts } = await import(`./blog.ts?test=${Date.now()}`);
-  assert.deepEqual(await getPublishedPosts(), []);
-  assert.match(requestedQuery, /defined\(publishedAt\)/);
-  assert.match(requestedQuery, /publishedAt <= now\(\)/);
-  assert.match(requestedQuery, /order\(featured desc, publishedAt desc\)/);
+test("Markdown blog reads public posts from content/blog", async () => {
+  const posts = await getPublishedPosts();
+  assert.ok(posts.some(post => post.slug === "welcome-to-columbia-founders"));
+  const welcome = await getPublishedPost("welcome-to-columbia-founders");
+  assert.equal(welcome?.title, "Welcome to Columbia Founders");
+  assert.equal(welcome?.featured, true);
+  assert.deepEqual(welcome?.categories, ["Community", "Updates"]);
 });
 
-test("unconfigured CMS returns an empty public collection", async () => {
-  delete process.env.SANITY_PROJECT_ID;
-  const { getPublishedPosts } = await import(`./blog.ts?empty=${Date.now()}`);
-  assert.deepEqual(await getPublishedPosts(), []);
+test("Markdown frontmatter and body are normalized for the API", () => {
+  const post = __testing.normalizeMarkdownPost("/tmp/example-post.md", `---
+title: "Example Post"
+excerpt: "Summary"
+publishedAt: "2025-02-19T12:00:00Z"
+author: "Jane Founder"
+featured: false
+categories: [Founder Stories, Updates]
+tags: [growth]
+---
+
+## Heading
+
+A useful paragraph.
+
+- First point
+- Second point
+`);
+  assert.equal(post?.slug, "example-post");
+  assert.equal(post?.author.name, "Jane Founder");
+  assert.equal(post?.readingMinutes, 1);
+  assert.equal(post?.body?.[0].style, "h2");
+  assert.equal(post?.body?.[2].listItem, "bullet");
 });
 
-test("normalization supplies safe optional-field and reading-time fallbacks", async () => {
-  process.env.SANITY_PROJECT_ID = "example";
-  const words = Array.from({ length: 401 }, () => "founder").join(" ");
-  global.fetch = (async () => new Response(JSON.stringify({ result: [{ _id: "post-1", title: "A useful article", slug: "useful", excerpt: "Summary", publishedAt: "2020-01-01T00:00:00Z", _updatedAt: "2020-01-01T00:00:00Z", body: [{ _key: "b1", _type: "block", children: [{ text: words }] }] }] }), { status: 200 })) as typeof fetch;
-  const { getPublishedPosts } = await import(`./blog.ts?fallback=${Date.now()}`);
-  const [post] = await getPublishedPosts();
-  assert.equal(post.readingMinutes, 3);
-  assert.equal(post.author.name, "Columbia Founder Community");
-  assert.equal(post.featuredImage, undefined);
-  assert.deepEqual(post.categories, []);
-});
+test("defense in depth removes future Markdown posts", () => {
+  const future = __testing.normalizeMarkdownPost("/tmp/future.md", `---
+title: Future
+publishedAt: "2999-01-01T00:00:00Z"
+---
 
-test("defense in depth removes draft and future results", async () => {
-  process.env.SANITY_PROJECT_ID = "example";
-  const base = { title: "Article", slug: "article", excerpt: "Summary", author: { name: "Author" }, body: [], _updatedAt: "2020-01-01T00:00:00Z" };
-  global.fetch = (async () => new Response(JSON.stringify({ result: [
-    { ...base, _id: "published", publishedAt: "2020-01-01T00:00:00Z" },
-    { ...base, _id: "drafts.draft", slug: "draft", publishedAt: "2020-01-01T00:00:00Z" },
-    { ...base, _id: "future", slug: "future", publishedAt: "2999-01-01T00:00:00Z" },
-  ] }), { status: 200 })) as typeof fetch;
-  const { getPublishedPosts } = await import(`./blog.ts?privacy=${Date.now()}`);
-  assert.deepEqual((await getPublishedPosts()).map(post => post._id), ["published"]);
+Not public yet.
+`);
+  assert.ok(future);
+  assert.equal(__testing.isCurrentlyPublic(future!), false);
 });
