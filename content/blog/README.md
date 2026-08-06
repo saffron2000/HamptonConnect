@@ -1,13 +1,27 @@
 # Blog content workflow
 
+## How to Add a New Blog Post (2 Minutes)
+
+1. Copy `_template.md` in this folder.
+2. Rename the copy using a short, descriptive filename, for example `my-founder-story.md`.
+3. Open the copy and fill in the title, excerpt, author, date (`publishedAt`), categories, and article. The comments in the file explain each field.
+4. Save the file.
+5. Refresh `/blog` in your browser.
+
+> **DO NOT EDIT `_template.md`.** Always make a copy first, and never change the `---` separator lines at the top and bottom of the post details.
+
+### Add a featured image
+
+1. Put your image in `public/images/blog/`, for example `public/images/blog/my-photo.jpg`.
+2. In your copied blog file, set:
+
+```yaml
+featuredImage: "/images/blog/my-photo.jpg"
+```
+
+The path begins with `/images/blog/` even though the file is stored in `public/images/blog/`.
+
 The website blog reads Markdown files from this folder (`content/blog`). Each public post should be a `.md` file with YAML-style frontmatter followed by Markdown body content.
-
-## Add a new post
-
-1. Create a new Markdown file in this folder, for example `my-founder-story.md`.
-2. Add frontmatter at the top of the file between `---` markers.
-3. Write the article body in Markdown below the frontmatter.
-4. Run the test suite and open `/blog` or `/blog/<slug>` locally to verify the post.
 
 ## Frontmatter fields
 
